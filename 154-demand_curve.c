@@ -67,6 +67,6 @@ int main(){
     apop_data *draws = apop_model_draws(apop_model_set_parameters(demandside, 2.6, 1.6, 1.2), .count=20);
     apop_data_show(draws);
 
-    Apop_model_add_group(&demandside, apop_mle, .tolerance=1e-5, .dim_cycle_tolerance=1e-3, .verbose='y');
+    Apop_model_add_group(&demandside, apop_mle, .tolerance=1e-5, .dim_cycle_tolerance=1e-3);
     apop_model_show(apop_estimate(draws, demandside));
 }
