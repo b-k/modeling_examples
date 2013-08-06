@@ -1,0 +1,32 @@
+
+plot_elasticities(){
+cat << ----- | cat - $1 | gnuplot
+plot x
+set term png
+set key off
+set xlabel "elasticity, contribs"
+set ylabel "elasticity, ideology"
+set out '$2'
+replot '-' pt 8
+-----
+}
+
+plot_elasticities elast.y elasticities.no-tap.png
+plot_elasticities elast.n elasticities.pro-tap.png
+
+
+
+cat > r_plots << "-----"
+bar <- function(filename, pngname){
+    t<-read.csv(filename, sep="\t")
+    t <-t(t)
+    png(pngname)
+    barplot(as.matrix(t), col=c("darkblue", "green"))
+    dev.off()
+}
+
+bar("nnn", "pro-tap.png")
+bar("yyy", "no-tap.png")
+-----
+
+R -f r_plots
