@@ -54,8 +54,9 @@ void elastic(apop_model *logit_out, char *outfile, int keep){
 
 int main(){
     apop_text_to_db("amash_vote_analysis.csv", .tabname="amash");
-    apop_data *d = apop_query_to_mixed_data("mmmt", "select 0, ideology,contribs, vote from amash");
+    apop_data *d = apop_query_to_mixed_data("mmmt", "select 0, ideology,log(contribs+10) as contribs, vote from amash");
     apop_data_to_factors(d);
+    Apop_model_add_group(&apop_logit, apop_mle, .verbose='y', .method=APOP_CG_PR, .tolerance=1e-7);
     apop_model *logit_out = apop_estimate(d, apop_logit);
     apop_model_show(logit_out);
 
