@@ -1,0 +1,10 @@
+                      vote 	  ideology 	  log(contribs+10)
+             vote        1 	  0.209525 	          0.195245
+         ideology 0.209525 	         1 	           0.19935
+ log(contribs+10) 0.195245 	   0.19935 	                 1
+
+Eigenvalues:
+ 0.942830	 0.047934	 0.009235
+
+Principal eigenvector:
+-0.047232	-0.020945	-0.998664

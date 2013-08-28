@@ -1,0 +1,25 @@
+Parameters:
+ 0.000000
+ 2.000000
+ 1.000000
+	<Covariance>
+
+ 0.000000	-0.000000	 0.000000
+-0.000000	 0.000000	-0.000000
+ 0.000000	-0.000000	 0.000000
+	Info
+
+              df	   98
+  log likelihood	 2754.995051
+       R_squared	    1
+   R_squared_adj	    1
+             SSE	 0.000000
+             SST	 367553.939630
+             SSR	 367553.939630
+	<test info>
+
+p value	confidence
+ 0.515685	 0.484315
+    0	    1
+    0	    1
+mean replicated coefficient = 2

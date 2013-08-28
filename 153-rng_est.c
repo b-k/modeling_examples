@@ -35,13 +35,13 @@ apop_model binom = {"Binomial draws (n=1000) via random draws", .vbase=1, .dsize
 //draws given various paramter values; find the optimal parameter given the input data.
 int main(){
     apop_data *five_draws= apop_data_alloc(5,1);
-    sprintf(five_draws->names->title, "five draws");
+    asprintf(&five_draws->names->title, "five draws");
     apop_model_draws(.model=apop_model_set_parameters(binom, 0.3), 
                      .rng=apop_rng_alloc(123), .draws=five_draws);
     apop_data_print(five_draws);
     printf("\n\n");
 
-    #define showprob(p) printf("prob(five draws|param=" #p ") = %g\n", \
+    #define showprob(p) printf("PDF(five draws|param=" #p ") = %g\n", \
             apop_p(five_draws, apop_model_set_parameters(binom, p)));
 
     showprob(0.2)
@@ -53,6 +53,6 @@ int main(){
     printf("\n\n");
     Apop_model_add_group(&binom, apop_mle, .step_size=0.1, /*.method=APOP_SIMPLEX_NM,*/
         .tolerance=1e-7, /*.verbose='y',*/ .starting_pt=(double[]){0.4});
-    apop_model_print(apop_estimate(five_draws, binom));
+    apop_model_print(apop_estimate(five_draws, binom), NULL);
 
 }

@@ -1,0 +1,33 @@
+ N(1, 1)
+Normal distribution
+
+  μ	 0.999414
+  σ	 0.999518
+	<Covariance>
+
+ 0.000005	    0
+    0	 0.000010
+	Info
+
+  log likelihood	-467478.957461
+
+ truncated N(1, 1)
+A truncated univariate model
+
+ 0.998375
+ 0.999158
+
+ Beta(.7, 1.7)
+Beta distribution
+
+  α	 0.702811
+  β	 1.708389
+	Info
+
+  log likelihood	 60570.634943
+
+ Truncated Beta(.7, 1.7)
+A truncated univariate model
+
+ 0.700953
+ 1.701210

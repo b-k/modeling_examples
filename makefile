@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 CFLAGS =-g -Wall -O3  `pkg-config --cflags apophenia`
 LDLIBS=`pkg-config --libs apophenia` 
 CC=c99
@@ -19,3 +20,9 @@ plot_search: 156-find
 plot_logits: 160-logit
 	./160-logit
 	. 160-make_plots
+
+onetest:
+	diff <(./$(Testme)) outputs/$(Testme).out
+
+test: all
+	for Testme in $(Executables) ; do diff <(./$$Testme) outputs/$$Testme.out; done
