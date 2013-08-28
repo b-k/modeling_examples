@@ -1,0 +1,17 @@
+This is the branch of the repository used for testing Apophenia (and the code itself).
+
+* The outputs directory includes the results from previous runs of the programs,
+which were verified using other stats packages or situational knowledge.
+
+* There is a "tests" target in the makefile, which runs all programs and compares
+their output to the known good results. Notice that it specifies bash as the shell,
+because we use process substitution, provided by bash/zsh/&c. but not the POSIX-standard
+sh.
+
+* Numeric programs sometimes differ across machines. A large difference should be
+reported as a bug. Small differences---the difference between .99998 and .99999,
+say---can still be important, but there are limited resources for debugging and
+improving Apophenia and bigger problems to be confronted.
+
+* It is written to compile using apophenia v0.995 or greater. Right now, that means
+checking out the v1 branch from the Apophenia repository on Github.

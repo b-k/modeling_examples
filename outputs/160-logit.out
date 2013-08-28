@@ -1,0 +1,14 @@
+Logit with 0 as numeraire
+
+            1
+         1	-2.371315
+  ideology	 1.651240
+  contribs	 0.163128
+	Info
+
+nnn            mean	std dev	variance	min	median	max
+  ideology	 0.390116	 0.098000	 0.009604	 0.108629	 0.401381	 0.737085
+  contribs	 0.609884	 0.098000	 0.009604	 0.262915	 0.598619	 0.891371
+yyy            mean	std dev	variance	min	median	max
+  ideology	 0.364898	 0.143118	 0.020483	    0	 0.378073	 0.805307
+  contribs	 0.635102	 0.143118	 0.020483	 0.194693	 0.621927	    1

@@ -1,0 +1,21 @@
+	five draws
+
+ 0.295000
+ 0.301000
+ 0.288000
+ 0.316000
+ 0.302000
+
+
+PDF(five draws|param=0.2) = 0
+PDF(five draws|param=0.25) = 11342
+PDF(five draws|param=0.3) = 18593.4
+PDF(five draws|param=0.35) = 13387.3
+PDF(five draws|param=0.5) = 0
+
+
+Binomial draws (n=1000) via random draws
+
+ 0.290821
+	Info
+
