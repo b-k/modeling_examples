@@ -45,10 +45,10 @@ void set_fn(apop_data *d, apop_model *m){
     gsl_vector_memcpy(m->parameters->vector, onerow);
 }
 
-double p(apop_data *d, apop_model *m){
-    apop_multivariate_normal.vbase =
-    apop_multivariate_normal.m1base=
-    apop_multivariate_normal.m2base= 2;
+long double p(apop_data *d, apop_model *m){
+    apop_multivariate_normal.vsize =
+    apop_multivariate_normal.msize1=
+    apop_multivariate_normal.msize2= 2;
     apop_model *kernel = apop_model_set_parameters(apop_multivariate_normal,
             0,   1, 0,
             0,   0, 1);
@@ -61,12 +61,12 @@ double p(apop_data *d, apop_model *m){
     return out;
 }
 
-apop_model demandside = {"Demand given price", .vbase=3, .dsize=2, .draw=draw, .p=p};
+apop_model demandside = {"Demand given price", .vsize=3, .dsize=2, .draw=draw, .p=p};
 
 int main(){
     apop_data *draws = apop_model_draws(apop_model_set_parameters(demandside, 2.6, 1.6, 1.2), .count=20);
     apop_data_show(draws);
 
-    Apop_model_add_group(&demandside, apop_mle, .tolerance=1e-5, .dim_cycle_tolerance=1e-3);
+    Apop_settings_add_group(&demandside, apop_mle, .tolerance=1e-5, .dim_cycle_tolerance=1e-3);
     apop_model_show(apop_estimate(draws, demandside));
 }

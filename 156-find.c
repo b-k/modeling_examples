@@ -9,15 +9,15 @@ double one_weibull(double d, void *params){
         - powl(d/lambda, k);
 }
 
-static double positive_params(apop_data *data, apop_model *v){
+static long double positive_params(apop_data *data, apop_model *v){
     return apop_linear_constraint(v->parameters->vector);
 }
 
-double weibull_ll(apop_data *d, apop_model *m){
+long double weibull_ll(apop_data *d, apop_model *m){
     return apop_map_sum(d, .param = m->parameters, .fn_dp=one_weibull, .part='a');
 }
 
-apop_model weibull = {"The Weibull", .vbase=2, .log_likelihood = weibull_ll,
+apop_model weibull = {"The Weibull", .vsize=2, .log_likelihood = weibull_ll,
             .constraint=positive_params};
 
 void one_run(int grid_size, int pop_size){
@@ -37,7 +37,7 @@ apop_model *fuzz(apop_model sim){
     apop_model *prior = apop_model_stack(
                             apop_model_set_parameters(apop_normal, 10, 2),
                             apop_model_set_parameters(apop_normal, 10, 2));
-    apop_data *outdata = apop_data_alloc(draws, weibull.vbase);
+    apop_data *outdata = apop_data_alloc(draws, weibull.vsize);
     apop_prep(NULL, &sim);
     double params[2];
     sim.more = params;

@@ -4,7 +4,7 @@ double cutoff; //A global variable, so you know this isn't for production use.
 
 double under_cutoff(double in){ return (in < cutoff); }
 
-double like(apop_data *d, apop_model *m){
+long double like(apop_data *d, apop_model *m){
     double any_under_cutoff = apop_map_sum(d, .fn_d=under_cutoff, .part='a');
     if (any_under_cutoff) return -INFINITY;
 
@@ -22,10 +22,10 @@ void r(double *out, gsl_rng *r, apop_model *m){
 void prep(apop_data *d, apop_model *m){
     apop_model *base_model = m->more;
     apop_prep(d, base_model);
-    m->vbase= base_model->vbase;
-    m->m1base= base_model->m1base;
-    m->m2base= base_model->m2base;
-    m->parameters= base_model->parameters;
+    m->vsize = base_model->vsize;
+    m->msize1 = base_model->msize1;
+    m->msize2 = base_model->msize2;
+    m->parameters = base_model->parameters;
 }
 
 apop_model truncated_model = {"A truncated univariate model", .log_likelihood= like, .draw=r, .prep=prep};

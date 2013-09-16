@@ -18,7 +18,7 @@ void set_midpoint(apop_data * in, apop_model *m){
 }
 
 //The probability: draw from the rng, smooth with a kernel density, calculate p.
-double p(apop_data *d, apop_model *m){
+long double p(apop_data *d, apop_model *m){
     int draw_ct = 100;
     apop_data *draws = apop_model_draws(m, draw_ct);
     apop_model *smoothed = apop_model_copy_set(apop_kernel_density, apop_kernel_density,
@@ -29,19 +29,19 @@ double p(apop_data *d, apop_model *m){
     return out;
 }
 
-apop_model binom = {"Binomial draws (n=1000) via random draws", .vbase=1, .dsize=1, .draw=rng, .p=p};
+apop_model binom = {"Binomial draws (n=1000) via random draws", .vsize=1, .dsize=1, .draw=rng, .p=p};
 
 //Now let's use the model: make five draws from it, find the probability of those 
 //draws given various paramter values; find the optimal parameter given the input data.
 int main(){
     apop_data *five_draws= apop_data_alloc(5,1);
-    sprintf(five_draws->names->title, "five draws");
+    asprintf(&five_draws->names->title, "five draws");
     apop_model_draws(.model=apop_model_set_parameters(binom, 0.3), 
                      .rng=apop_rng_alloc(123), .draws=five_draws);
     apop_data_print(five_draws);
     printf("\n\n");
 
-    #define showprob(p) printf("prob(five draws|param=" #p ") = %g\n", \
+    #define showprob(p) printf("PDF(five draws|param=" #p ") = %g\n", \
             apop_p(five_draws, apop_model_set_parameters(binom, p)));
 
     showprob(0.2)
@@ -53,6 +53,6 @@ int main(){
     printf("\n\n");
     Apop_model_add_group(&binom, apop_mle, .step_size=0.1, /*.method=APOP_SIMPLEX_NM,*/
         .tolerance=1e-7, /*.verbose='y',*/ .starting_pt=(double[]){0.4});
-    apop_model_print(apop_estimate(five_draws, binom));
+    apop_model_print(apop_estimate(five_draws, binom), NULL);
 
 }
