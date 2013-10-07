@@ -1,0 +1,23 @@
+mkdir logit_eg
+cd logit_eg
+git clone https://github.com/paulgribble/psychometric.git
+
+
+cat >> makefile << '------'
+CFLAGS =-g -Wall -O3  `pkg-config --cflags apophenia`
+LDLIBS=`pkg-config --libs apophenia` 
+CC=c99
+171-a_logit:
+------
+
+
+cat >> 171-a_logit.c << '------'
+#include <apop.h>
+
+int main(){
+    apop_text_to_db("psychometric/exdata", "d", .delimiters=" ", .has_col_names='n', .field_names=(char*[]){"measure", "outcome"});
+    apop_model_show(apop_estimate(apop_query_to_data("select outcome, measure from d"), apop_logit));
+}
+------
+
+make && ./171-a_logit
