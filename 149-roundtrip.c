@@ -10,10 +10,10 @@ void round_trip(apop_model *m){
     //apop_plot_histogram(v, .bin_count=100, .output_pipe=popen("gnuplot --persist", "w"));
 
     //this copying and NULLifying is unnecessary; it's just so you know I'm not cheating.
-    apop_model *clean_copy = apop_model_copy(*m);
+    apop_model *clean_copy = apop_model_copy(m);
     clean_copy->parameters = NULL;                
 
-    apop_model_show(apop_estimate(draws, *clean_copy));
+    apop_model_show(apop_estimate(draws, clean_copy));
 }
 
 int main(){

@@ -22,14 +22,14 @@ long double p(apop_data *d, apop_model *m){
     int draw_ct = 100;
     apop_data *draws = apop_model_draws(m, draw_ct);
     apop_model *smoothed = apop_model_copy_set(apop_kernel_density, apop_kernel_density,
-            .base_data =draws, .kernel=&apop_uniform, .set_fn=set_midpoint);
+            .base_data =draws, .kernel=apop_uniform, .set_fn=set_midpoint);
     double out = apop_p(d, smoothed);
     apop_data_free(draws);
     apop_model_free(smoothed);
     return out;
 }
 
-apop_model binom = {"Binomial draws (n=1000) via random draws", .vsize=1, .dsize=1, .draw=rng, .p=p};
+apop_model *binom = &(apop_model){"Binomial draws (n=1000) via random draws", .vsize=1, .dsize=1, .draw=rng, .p=p};
 
 //Now let's use the model: make five draws from it, find the probability of those 
 //draws given various paramter values; find the optimal parameter given the input data.
@@ -51,7 +51,7 @@ int main(){
     showprob(0.5)
 
     printf("\n\n");
-    Apop_model_add_group(&binom, apop_mle, .step_size=0.1, /*.method=APOP_SIMPLEX_NM,*/
+    Apop_model_add_group(binom, apop_mle, .step_size=0.1, /*.method=APOP_SIMPLEX_NM,*/
         .tolerance=1e-7, /*.verbose='y',*/ .starting_pt=(double[]){0.4});
     apop_model_print(apop_estimate(five_draws, binom), NULL);
 

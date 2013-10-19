@@ -62,7 +62,7 @@ int main(){
     Apop_col_t(rpage, "Residual", resid)
 
     int runs = 10000;
-    Apop_model_add_group(&apop_ols, apop_parts_wanted);
+    Apop_model_add_group(apop_ols, apop_parts_wanted);
     apop_data *out = apop_data_alloc(runs);
     apop_map(out, .fn_rpi=one_replication, .inplace='y',
                   .param = &((rep_s){.data=d, .yhat=yhat, .resid=resid}));

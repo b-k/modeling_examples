@@ -28,7 +28,7 @@ void prep(apop_data *d, apop_model *m){
     m->parameters = base_model->parameters;
 }
 
-apop_model truncated_model = {"A truncated univariate model", .log_likelihood= like, .draw=r, .prep=prep};
+apop_model *truncated_model = &(apop_model){"A truncated univariate model", .log_likelihood= like, .draw=r, .prep=prep};
 
 apop_model *truncate_model(apop_model *in, double cutoff_in){
     cutoff = cutoff_in;

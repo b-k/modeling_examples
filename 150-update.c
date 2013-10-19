@@ -19,7 +19,7 @@ int main(){
                     apop_model_set_parameters(apop_normal, 2, 1), 
                     0
                 ), 
-                &apop_poisson
+                apop_poisson
             )->data,
             apop_normal
         )
