@@ -1,6 +1,6 @@
 #include <apop.h>
 
-apop_model truncated_model; //these two will be defined in the next file.
+apop_model *truncated_model; //these two will be defined in the next file.
 apop_model *truncate_model(apop_model *in, double cutoff_in);
 
 void round_trip(apop_model *m){

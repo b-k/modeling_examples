@@ -15,11 +15,11 @@ long double like(apop_data *d, apop_model *m){
         - (d->matrix ? d->matrix->size1 : d->vector->size) * log(1 - apop_cdf(&(apop_data){.vector=&gv.vector}, m->more));
 }
 
-void r(double *out, gsl_rng *r, apop_model *m){
+static void r(double *out, gsl_rng *r, apop_model *m){
     do apop_draw(out, r, m->more); while (*out < cutoff);
 }
 
-void prep(apop_data *d, apop_model *m){
+static void prep(apop_data *d, apop_model *m){
     apop_model *base_model = m->more;
     apop_prep(d, base_model);
     m->vsize = base_model->vsize;
