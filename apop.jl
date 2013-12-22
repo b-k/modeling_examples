@@ -1,4 +1,3 @@
-
 require("GSL")
 
 type apop_name
@@ -76,13 +75,13 @@ function db_close()
 end
 
 function text_to_db(filename::String, tabname::String)
- out = ccall( (:apop_text_to_db_base, "libapophenia"),
- Cint,
- (Ptr{Uint8},Ptr{Uint8}, Int32, Int32, Ptr{Ptr{Uint8}},
- Ptr{Uint8},Ptr{apop_data}, Ptr{Uint8}, Ptr{Uint8}),
- bytestring(filename), 
- bytestring(tabname), 
-'n', 'y', C_NULL, C_NULL, C_NULL, C_NULL, bytestring("|\t ")
+    out = ccall( (:apop_text_to_db_base, "libapophenia"),
+        Cint,
+        (Ptr{Uint8},Ptr{Uint8}, Int32, Int32, Ptr{Ptr{Uint8}},
+        Ptr{Uint8},Ptr{apop_data}, Ptr{Uint8}, Ptr{Uint8}),
+        bytestring(filename), 
+        bytestring(tabname), 
+        'n', 'y', C_NULL, C_NULL, C_NULL, C_NULL, bytestring("|\t ")
      )
   if out == 1
     error("text_to_db: trouble reading", filename)
@@ -93,14 +92,14 @@ end
 function query_to_data(query::String)
     out = ccall( (:apop_query_to_data, "libapophenia"),
               Ptr{apop_data}, (Ptr{Uint8},), bytestring(query)) 
-#    data = unsafe_load(out)
-#    if data.error != 0
-#        error("query_to_data: trouble with query:", query)
-#    end
+    data = unsafe_load(out)
+    if data.error != 0
+        error("query_to_data: trouble with query:", query)
+    end
     out
 end
 
-#Just the vector. no names
+#Just the vector. No names.
 function data_as_vector(inptr::Ptr{apop_data})
     in = unsafe_load(inptr)
     if in.vector == C_NULL
@@ -110,7 +109,7 @@ function data_as_vector(inptr::Ptr{apop_data})
     transpose(pointer_to_array(m.data, (int(m.size),)))
 end
     
-#Just the matrix. no names
+#Just the matrix. No names.
 function data_as_array(inptr::Ptr{apop_data})
     in = unsafe_load(inptr)
     if in.matrix == C_NULL
