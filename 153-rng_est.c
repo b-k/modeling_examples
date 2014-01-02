@@ -51,7 +51,7 @@ int main(){
     showprob(0.5)
 
     printf("\n\n");
-    Apop_model_add_group(binom, apop_mle, .step_size=0.1, /*.method=APOP_SIMPLEX_NM,*/
+    Apop_model_add_group(binom, apop_mle, .step_size=0.1, /*.method="NM simplex",*/
         .tolerance=1e-7, /*.verbose='y',*/ .starting_pt=(double[]){0.4});
     apop_model_print(apop_estimate(five_draws, binom), NULL);
 
