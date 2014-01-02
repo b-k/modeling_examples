@@ -47,7 +47,7 @@ apop_model *fuzz(apop_model sim){
         } while (params[1]*2 > pow(params[0], 2));
         sim.dsize=params[1];
         apop_model *est = apop_estimate(apop_model_draws(&sim, 1000), weibull);
-        Apop_matrix_row(outdata->matrix, i, onerow);
+        Apop_row_v(outdata, i, onerow);
         gsl_vector_memcpy(onerow, est->parameters->vector);
         apop_model_free(est);
     }

@@ -13,7 +13,7 @@ int main(){
     
 /*   oops: getting ahead of myself. Apop_matrix_row_t will be added shortly.
     printf("\nWhile we're here, a moving average for Algeria:\n");
-    Apop_matrix_row_t(d->matrix, "Algeria", af);
+    Apop_row_tv(d, "Algeria", af);
     apop_vector_show(apop_vector_moving_average(af,2));
     */
 }

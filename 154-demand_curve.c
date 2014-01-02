@@ -41,7 +41,7 @@ void draw(double *qs, gsl_rng *r, apop_model *m){
 
 //for the Kernel density: center a Uniform distribution around a datum
 void set_fn(apop_data *d, apop_model *m){
-    Apop_matrix_row(d->matrix, 0, onerow);
+    Apop_row_v(d, 0, onerow);
     gsl_vector_memcpy(m->parameters->vector, onerow);
 }
 

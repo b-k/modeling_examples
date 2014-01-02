@@ -58,8 +58,8 @@ int main(){
     apop_model_show(m);
 
     apop_data *rpage = apop_data_get_page(m->info, "<Predicted>");
-    Apop_col_t(rpage, "Predicted", yhat)
-    Apop_col_t(rpage, "Residual", resid)
+    Apop_col_tv(rpage, "Predicted", yhat)
+    Apop_col_tv(rpage, "Residual", resid)
 
     int runs = 10000;
     Apop_model_add_group(apop_ols, apop_parts_wanted);

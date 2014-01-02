@@ -9,7 +9,7 @@ double scale(gsl_vector *in){apop_vector_normalize(in); return 0;}
 void print_effects(apop_model *logit_out, char *outfile, int keep){
     apop_data *effect = apop_data_copy(logit_out->data);
     for (int i=0; i< logit_out->parameters->matrix->size1; i++){
-        Apop_col(effect, i, onecol);
+        Apop_col_v(effect, i, onecol);
         gsl_vector_scale(onecol, apop_data_get(logit_out->parameters, i));
     //printf("Mu for %s, %s: %g\n", outfile, effect->names->column[i], apop_mean(onecol));
     }
@@ -35,7 +35,7 @@ apop_data * elasticity(apop_data *d, apop_model *m, char *varname){
     apop_data *xbeta = apop_dot(d, m->parameters);
     //let us put the desired column in xbeta's ->vector.
 
-    Apop_col_t(d, varname, xcol);
+    Apop_col_tv(d, varname, xcol);
     double this_beta=apop_data_get(m->parameters, .rowname=varname);
     gsl_vector_scale(xcol, this_beta);
     xbeta->vector = xcol;
@@ -56,7 +56,7 @@ int main(){
     apop_text_to_db("amash_vote_analysis.csv", .tabname="amash");
     apop_data *d = apop_query_to_mixed_data("mmmt", "select 0, ideology,log(contribs+10) as contribs, vote from amash");
     apop_data_to_factors(d);
-    Apop_model_add_group(apop_logit, apop_mle, .verbose='y', .method=APOP_CG_PR, .tolerance=1e-7);
+    Apop_model_add_group(apop_logit, apop_mle, /*.verbose='y',*/ .method=APOP_CG_PR, .tolerance=1e-7);
     apop_model *logit_out = apop_estimate(d, apop_logit);
     apop_model_show(logit_out);
 

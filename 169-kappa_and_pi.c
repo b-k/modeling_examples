@@ -15,8 +15,8 @@ apop_data *kappa_and_pi(apop_data const *tab_in){
         double this_obs = apop_data_get(tab, c, c);
         p_o += this_obs;
 
-        Apop_matrix_row(tab->matrix, c, row);
-        Apop_matrix_col(tab->matrix, c, col);
+        Apop_row_v(tab, c, row);
+        Apop_col_v(tab, c, col);
         double rsum = apop_sum(row);
         double csum = apop_sum(col);
         p_e += rsum * csum;

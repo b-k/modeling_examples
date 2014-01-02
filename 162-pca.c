@@ -14,6 +14,6 @@ int main(){
     apop_vector_print(eigens->vector);
 
     printf("\nPrincipal eigenvector:\n");
-    Apop_matrix_col(eigens->matrix, 0, principal);
+    Apop_col_v(eigens, 0, principal);
     apop_vector_print(principal);
 }
