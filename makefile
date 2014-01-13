@@ -10,7 +10,8 @@ clean:
 
 149-roundtrip: 149-truncate.o
 150-update: 149-truncate.o
-156-find: 156-search.o
+154-demand_curve: 154a-demand_curve.o
+156-find: 156-search.o 156-weibull.o
 169-intercoder: 169-kappa_and_pi.o
 
 plot_search: 156-find
