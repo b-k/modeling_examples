@@ -41,5 +41,5 @@ int main(){
     one_run(100, 10);
     one_run(10, 45);
     apop_model *fuzzed = fuzz(search_sim);
-    apop_data_print(fuzzed->data, .output_file="outdata");
+    apop_data_print(fuzzed->data, .output_name="outdata");
 }

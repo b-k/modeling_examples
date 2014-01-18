@@ -20,7 +20,7 @@ void print_effects(apop_model *logit_out, char *outfile, int keep){
     apop_data_sort(effect);
     printf(outfile);
     apop_data_print(apop_data_summarize(effect));
-    apop_matrix_print(effect->matrix, .output_file=outfile);
+    apop_matrix_print(effect->matrix, .output_name=outfile);
 }
 
 //Elasticities
@@ -49,7 +49,7 @@ void elastic(apop_model *logit_out, char *outfile, int keep){
     apop_data *ideology_e = (elasticity(d, logit_out, "ideology"));
     contribs_e->names=NULL; //so they don't print.
     apop_data_print(apop_data_stack(contribs_e, ideology_e, .posn='c', .inplace='y')
-                     , .output_file=outfile);
+                     , .output_name=outfile);
 }
 
 int main(){
