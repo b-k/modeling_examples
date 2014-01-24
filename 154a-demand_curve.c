@@ -4,7 +4,7 @@ typedef struct {
     double b, alpha, q1, q2;
 } an_agent;
 
-void draw(double *qs, gsl_rng *r, apop_model *m){
+int draw(double *qs, gsl_rng *r, apop_model *m){
     double m1 = apop_data_get(m->parameters, 0);
     double m2 = apop_data_get(m->parameters, 1);
     double p1 = apop_data_get(m->parameters, 2);
@@ -37,4 +37,5 @@ void draw(double *qs, gsl_rng *r, apop_model *m){
     qs[0] /= agent_count;
     qs[1] /= agent_count;
     apop_model_free(ba_model);
+    return 0;
 }

@@ -1,11 +1,12 @@
 #include <apop.h>
 
 //Binomial draws. Input parameter gives the odds of a one; we always make 1,000 draws.
-void rng(double *out, gsl_rng *r, apop_model *m){
+int rng(double *out, gsl_rng *r, apop_model *m){
     double prob = apop_data_get(m->parameters);
     int draws = 1000;
     *out = 0;
     for (int i=0; i< draws; i++) if (gsl_rng_uniform(r) < prob) *out += 1./draws;
+    return 0;
 }
 
 //For centering a uniform distribution around a point. 

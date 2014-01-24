@@ -1,5 +1,5 @@
 #include <apop.h>
-void draw(double *qs, gsl_rng *r, apop_model *m); //from previous listing.
+int draw(double *qs, gsl_rng *r, apop_model *m); //from previous listing.
 
 //for the Kernel density: center a Uniform distribution around a datum
 void set_fn(apop_data *d, apop_model *m){

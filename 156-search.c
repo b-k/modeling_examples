@@ -16,7 +16,7 @@ void generate_agents(agent_s **grid, int grid_size, int pop_size, agent_s *out){
     out[pop_size] = (agent_s){}; //empty stopper.
 }
 
-void run_sim(double *durations, gsl_rng *r, apop_model *m){
+int run_sim(double *durations, gsl_rng *r, apop_model *m){
     int grid_size = ((double*)m->more)[0];
     int pop_size = ((double*)m->more)[1];
     int done_ctr = 0, period = 1;
@@ -41,6 +41,7 @@ void run_sim(double *durations, gsl_rng *r, apop_model *m){
         }
         period ++;
     } while (done_ctr < pop_size/2);
+    return 0;
 }
 
 apop_model search_sim = {"A search on a grid", .draw=run_sim};
