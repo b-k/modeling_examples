@@ -38,7 +38,7 @@ int main(){
     apop_data *five_draws= apop_data_alloc(5,1);
     asprintf(&five_draws->names->title, "five draws");
     apop_model_draws(.model=apop_model_set_parameters(binom, 0.3), 
-                     .rng=apop_rng_alloc(123), .draws=five_draws);
+                     .draws=five_draws);
     apop_data_print(five_draws);
     printf("\n\n");
 
