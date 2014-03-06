@@ -5,10 +5,8 @@ extern apop_model *weibull;
 void one_run(int grid_size, int pop_size){
     printf("------ A run with a %i X %i grid and %i agents:\n", grid_size, grid_size, pop_size);
     search_sim.dsize = pop_size;
-    double params[2];
-    search_sim.more = params;
-    params[0] = grid_size;
-    params[1] = pop_size;
+    apop_data_set(search_sim.parameters, 0, .val=grid_size);
+    apop_data_set(search_sim.parameters, 1, .val=pop_size);
     apop_model *model_out = apop_estimate(apop_model_draws(&search_sim, 1000), weibull);
     apop_model_show(model_out);
 }
@@ -20,12 +18,10 @@ apop_model *fuzz(apop_model sim){
                             apop_model_set_parameters(apop_normal, 10, 2),
                             apop_model_set_parameters(apop_normal, 10, 2));
     apop_data *outdata = apop_data_alloc(draws, weibull->vsize);
-    apop_prep(NULL, &sim);
-    double params[2];
-    sim.more = params;
+    double *params = sim.parameters->vector->data;
     for (int i=0; i< draws; i++){
         do {
-        apop_draw(params, r, prior);
+            apop_draw(params, r, prior);
         } while (params[1]*2 > pow(params[0], 2));
         sim.dsize=params[1];
         apop_model *est = apop_estimate(apop_model_draws(&sim, 1000), weibull);
@@ -37,6 +33,7 @@ apop_model *fuzz(apop_model sim){
 }
 
 int main(){ 
+    apop_prep(NULL, &search_sim);
     one_run(10, 10);
     one_run(100, 10);
     one_run(10, 45);

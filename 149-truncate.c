@@ -1,7 +1,6 @@
 #include <apop.h>
 
-double cutoff; //A global variable, so you know this isn't for production use.
-
+double cutoff;
 double under_cutoff(double in){ return (in < cutoff); }
 
 long double like(apop_data *d, apop_model *m){
@@ -12,10 +11,11 @@ long double like(apop_data *d, apop_model *m){
     gsl_vector_view gv = gsl_vector_view_array(&cutoff, 1);
 
     return apop_log_likelihood(d, m->more) 
-        - (d->matrix ? d->matrix->size1 : d->vector->size) * log(1 - apop_cdf(&(apop_data){.vector=&gv.vector}, m->more));
+        - (d->matrix ? d->matrix->size1 : d->vector->size) 
+            * log(1 - apop_cdf(&(apop_data){.vector=&gv.vector}, m->more));
 }
 
-static int r(double *out, gsl_rng *r, apop_model *m){
+static int rng(double *out, gsl_rng *r, apop_model *m){
     do apop_draw(out, r, m->more); while (*out < cutoff);
     return 0;
 }
@@ -29,7 +29,7 @@ static void prep(apop_data *d, apop_model *m){
     m->parameters = base_model->parameters;
 }
 
-apop_model *truncated_model = &(apop_model){"A truncated univariate model", .log_likelihood= like, .draw=r, .prep=prep};
+apop_model *truncated_model = &(apop_model){"A truncated univariate model", .log_likelihood= like, .draw=rng, .prep=prep};
 
 apop_model *truncate_model(apop_model *in, double cutoff_in){
     cutoff = cutoff_in;

@@ -17,8 +17,8 @@ void generate_agents(agent_s **grid, int grid_size, int pop_size, agent_s *out){
 }
 
 int run_sim(double *durations, gsl_rng *r, apop_model *m){
-    int grid_size = ((double*)m->more)[0];
-    int pop_size = ((double*)m->more)[1];
+    int grid_size = apop_data_get(m->parameters, 0);
+    int pop_size = apop_data_get(m->parameters, 1);
     int done_ctr = 0, period = 1;
     pop_size *=2; //guarantee evenness.
     assert(pop_size <= pow(grid_size,2));
@@ -35,7 +35,7 @@ int run_sim(double *durations, gsl_rng *r, apop_model *m){
             if (a->type=='A' && (b=search_for_mate(a, grid, grid_size))){
                 gridpt(a->x, a->y) = gridpt(b->x, b->y) = NULL;
                 a->done = b->done = true;
-                durations[done_ctr++] =period;
+                durations[done_ctr++] = period;
             }
             step(a, grid, grid_size);
         }
@@ -44,4 +44,4 @@ int run_sim(double *durations, gsl_rng *r, apop_model *m){
     return 0;
 }
 
-apop_model search_sim = {"A search on a grid", .draw=run_sim};
+apop_model search_sim = {"A search on a grid", .vsize=2, .draw=run_sim};

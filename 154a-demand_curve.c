@@ -12,9 +12,9 @@ int draw(double *qs, gsl_rng *r, apop_model *m){
     apop_model *ba_model = apop_model_stack(
             apop_model_set_parameters(apop_normal, m1, 1),
             apop_model_set_parameters(apop_normal, m2, 1)
-            ); //leaks; don't care.
+            );
 
-    //set up agents
+    //set up agents by drawing from the above model
     int agent_count=1000;
     an_agent a_list[agent_count];
     for(int i=0; i< agent_count; i++){
@@ -32,7 +32,6 @@ int draw(double *qs, gsl_rng *r, apop_model *m){
                         pow(p1/a_list[i].alpha, 1./(1-a_list[i].alpha)),
                         a_list[i].b/p1);
         qs[1] += a_list[i].q2 = (a_list[i].b - p1*a_list[i].q1);
-        //printf("%g %g\n", a_list[i].q1,a_list[i].q2);
     }
     qs[0] /= agent_count;
     qs[1] /= agent_count;

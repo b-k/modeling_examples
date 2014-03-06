@@ -1,6 +1,6 @@
 #include <apop.h>
 
-apop_model *truncated_model; //these are from last episode.
+apop_model *truncated_model; //these are from earlier.
 apop_model *truncate_model(apop_model *in, double cutoff_in);
 
 int main(){
