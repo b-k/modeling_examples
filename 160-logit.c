@@ -8,11 +8,8 @@ double scale(gsl_vector *in){apop_vector_normalize(in); return 0;}
 
 void print_effects(apop_model *logit_out, char *outfile, int keep){
     apop_data *effect = apop_data_copy(logit_out->data);
-    for (int i=0; i< logit_out->parameters->matrix->size1; i++){
-        Apop_col_v(effect, i, onecol);
-        gsl_vector_scale(onecol, apop_data_get(logit_out->parameters, i));
-    //printf("Mu for %s, %s: %g\n", outfile, effect->names->column[i], apop_mean(onecol));
-    }
+    for (int i=0; i< logit_out->parameters->matrix->size1; i++)
+        gsl_vector_scale(Apop_cv(effect, i), apop_data_get(logit_out->parameters, i));
 
     apop_data_rm_rows(effect, .do_drop=check_vote, .drop_parameter=&keep);
     apop_data_prune_columns(effect, "contribs", "ideology");
