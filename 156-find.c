@@ -14,7 +14,7 @@ void one_run(int grid_size, int pop_size){
 apop_model *fuzz(apop_model sim){
     int draws = 100;
     gsl_rng *r = apop_rng_alloc(1);
-    apop_model *prior = apop_model_stack(
+    apop_model *prior = apop_model_cross(
                             apop_model_set_parameters(apop_normal, 10, 2),
                             apop_model_set_parameters(apop_normal, 10, 2));
     apop_data *outdata = apop_data_alloc(draws, weibull->vsize);
