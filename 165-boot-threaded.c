@@ -1,5 +1,6 @@
 #include <gsl/gsl_permute_vector.h>
 #include <apop.h>
+#include <omp.h>
 
 typedef struct {
     gsl_rng *r;
@@ -49,7 +50,7 @@ double one_replication(apop_data *ignore, void *in, int index){
 }
 
 int main(){
-    apop_opts.thread_count = 4;
+    omp_set_num_threads(4);
     gsl_rng *r = apop_rng_alloc(123);
     apop_data *d = apop_data_alloc(101, 3);
     apop_map(d, .fn_rpi=set_a_row, 
