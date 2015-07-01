@@ -8,7 +8,7 @@ int main(){
     apop_crosstab_to_db(d, "wbdata", "country", "year", "expectancy");
 
     //pull from the database; write to file.
-    sprintf(apop_opts.db_name_column, "country");
+    apop_opts.db_name_column = "country";
     apop_data_print(apop_query_to_data("select * from wbdata"), .output_name="unxtabbed");
     
 /*   oops: getting ahead of myself. Apop_matrix_row_t will be added shortly.
