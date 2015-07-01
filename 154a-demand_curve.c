@@ -9,7 +9,7 @@ int draw(double *qs, gsl_rng *r, apop_model *m){
     double m2 = apop_data_get(m->parameters, 1);
     double p1 = apop_data_get(m->parameters, 2);
 
-    apop_model *ba_model = apop_model_stack(
+    apop_model *ba_model = apop_model_cross(
             apop_model_set_parameters(apop_normal, m1, 1),
             apop_model_set_parameters(apop_normal, m2, 1)
             );
