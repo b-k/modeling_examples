@@ -1,4 +1,4 @@
-CFLAGS =-g -Wall -O3  `pkg-config --cflags apophenia`
+CFLAGS =-g -Wall -O3  `pkg-config --cflags apophenia` -fopenmp
 LDLIBS=`pkg-config --libs apophenia` 
 CC=c99
 
